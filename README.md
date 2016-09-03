@@ -75,10 +75,18 @@
 
 	<input class="calendars" type="text" hours hours-past />
 
-定义日期的显示格式： <code>**format**</code>, 默认为 <code>**"yy/mm/dd"**</code> , 暂时只支持 斜杠 <code>/</code> 和 横杠 <code>-</code> 作为分割符   
-<code> yy:年</code> <code>mm:月</code> <code>dd:日</code>
+定义日期的显示格式： <code>**format**</code>, 默认为 <code>**"yyyy/mm/dd"**</code> , 支持任意分割符(分隔符必须为长度为1的非数字字符)
+
+<code> y:年</code> <code>m:月</code> <code>d:日</code>
 	 
-	<input class="calendars" type="text" format="yy-mm-dd" />
+	<input class="calendars" type="text" format="yyyy-mm-dd" />
+
+	format实例:
+	"yyyy-mm-dd"    => 2016-09-02
+	"y-m-d"         => 2016-9-2
+	"yyyy年m月d日"   => 2016年9月3日
+	"yyyy年mm月dd日" => 2016年09月03日
+	...
 
 定义指定禁用的日期属性： <code>**shield="[2015/3/8, 2015/3/9]"**</code>
 	
