@@ -954,34 +954,34 @@
      */
     function format(str, fmat){
         if(!str)return false;
-        str = str.split('/');
+        str = getDate(str,'')[0];
         fmat = fmat || 'y/m/d';
-        
-        var n = fmat.charAt(0), count = 0;
-        
-        for(var i = 0 ; i < fmat.length ; i++){
-            if(n.charAt(count) != fmat.charAt(i)){
-                n += fmat.charAt(i);
-                count++;
+        fmat = fmat.toLowerCase();
+
+        var ret = '';
+        if(/y/g.test(fmat)){
+            fmat = fmat.replace(/y+/g, str.y);
+        }
+
+        if (/mm/g.test(fmat)) {
+            if (str.m.length === 1) {
+                str.m = '0' + str.m;
             }
-        }        
-        
-        var data = {"y" : str[0], "m" : str[1], "d" : str[2]}, symbol = '', result = '';
-        
-        if(/\//g.test(n)){
-            symbol = '/';
-        } else if(/\-/g.test(n)) {
-            symbol = '-';
+            fmat = fmat.replace(/mm/g, str.m);
+        } else if (/m/g.test(fmat)) {
+            fmat = fmat.replace(/m+/g, str.m);
         }
-        
-        n = n.split(symbol);
-        
-        for(var i = 0 ; i < n.length ; i++){
-            result += data[n[i]];
-            if(i < n.length - 1)result += symbol;
+
+        if (/dd/g.test(fmat)) {
+            if (str.d.length === 1) {
+                str.d = '0' + str.d;
+            }
+            fmat = fmat.replace(/dd/g, str.d);
+        } else if (/d/g.test(fmat)) {
+            fmat = fmat.replace(/d+/g, str.d);
         }
-        
-        return result;
+
+        return fmat;
     }
 
     /**
@@ -993,7 +993,7 @@
         str = str.replace(/[\'\s]+/g, '');
         if(!str)return;
 
-        str = str.match(/(\d+[\/\-]\d+[\/\-]\d+)/g);
+        str = str.match(/(\d+\D\d+\D\d+)/g);
 
         var data = [];
 
